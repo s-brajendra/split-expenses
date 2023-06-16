@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +18,8 @@ import android.widget.Toast;
 
 import com.example.splitexpenses.adapters.MembersAdapter;
 import com.example.splitexpenses.db.TripAppDatabase;
-import com.example.splitexpenses.db.entity.NewTrip;
-import com.example.splitexpenses.fragments.HomeFragment;
 import com.example.splitexpenses.template_data.MemberCardData;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -136,9 +131,12 @@ public class NewTripActivity extends AppCompatActivity {
                 for (int j = 0; j < membersName.size(); j++) {
                     str[j] = membersName.get(j);
                 }
-                i.putExtra("membersName",str);
+                i.putExtra("memData",str);
+                i.putExtra("totalMembers",str.length);
                 setResult(RESULT_OK,i);
                 finish();
+
+
 
 
 

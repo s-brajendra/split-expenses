@@ -7,12 +7,33 @@
     tools:context=".MainActivity">
 
 
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            >
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <!--    // contains fragments-->
     <FrameLayout
 
+        android:id="@+id/flFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/flFragment"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -20,13 +41,17 @@
         app:layout_constraintTop_toTopOf="parent"
 
 
-
         />
     <!--// contains bottom navigation bar-->
     <include
+        android:id="@+id/include"
         layout="@layout/activity_navigation"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
+
+
+</LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

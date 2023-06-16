@@ -1,10 +1,13 @@
 package com.example.splitexpenses.fragments;
 
-import static java.sql.DriverManager.println;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,18 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.splitexpenses.NewTripActivity;
 import com.example.splitexpenses.R;
-import com.example.splitexpenses.template_data.MemberCardData;
 
-import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
 
     Button button;
-    TextView dataTextView;
+
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,17 +75,52 @@ public class HomeFragment extends Fragment {
 
         View view =    inflater.inflate(R.layout.fragment_home, container, false);
         button = (Button)view.findViewById(R.id.createTripButton);
-        dataTextView = (TextView)view.findViewById(R.id.dataArray);
+
+
+
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), NewTripActivity.class);
-                view.getContext().startActivity(i);
+//                Intent i = new Intent(getContext(), NewTripActivity.class);
+//                view.getContext().startActivity(i);
+
+
+                openSomeActivityForResult();
             }
         });
         return view;
     }
+
+
+
+
+
+    // starting activity for result;
+    public void openSomeActivityForResult() {
+        Intent intent = new Intent(getContext(), NewTripActivity.class);
+        someActivityResultLauncher.launch(intent);
+    }
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        int totalMembers = data.getIntExtra("totalMembers",0);
+                        String []  members = new String[totalMembers];
+                        members = data.getStringArrayExtra("memData");
+                         //
+                        Log.i("TAGY","passin worked " + members[0]);
+
+                    }
+                }
+            });
+
 
 }
