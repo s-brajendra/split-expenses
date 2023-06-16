@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,11 +20,14 @@ import android.widget.TextView;
 
 import com.example.splitexpenses.NewTripActivity;
 import com.example.splitexpenses.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
 
 
-    Button button;
+
+    FloatingActionButton fab;
+    RecyclerView recyclerView;
 
 
 
@@ -74,23 +78,19 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view =    inflater.inflate(R.layout.fragment_home, container, false);
-        button = (Button)view.findViewById(R.id.createTripButton);
 
+recyclerView = view.findViewById(R.id.recycler_trips_list);
 
-
-
-
-
-        button.setOnClickListener(new View.OnClickListener() {
+         fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-//                Intent i = new Intent(getContext(), NewTripActivity.class);
-//                view.getContext().startActivity(i);
-
-
+            public void onClick(View view) {
                 openSomeActivityForResult();
             }
         });
+
+
+
         return view;
     }
 

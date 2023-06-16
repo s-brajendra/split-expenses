@@ -7,8 +7,7 @@
     tools:context=".MainActivity">
 
 
-
-<LinearLayout
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,7 +15,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_weight="0"
         >
 
 
@@ -33,24 +33,36 @@
 
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="10"
 
 
         />
     <!--// contains bottom navigation bar-->
     <include
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/include"
         layout="@layout/activity_navigation"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_weight="1"/>
 
 
-</LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
 
 
 
