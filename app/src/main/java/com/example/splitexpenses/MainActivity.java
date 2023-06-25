@@ -15,6 +15,10 @@ import android.view.MenuItem;
 import com.example.splitexpenses.fragments.AnalysisFragment;
 import com.example.splitexpenses.fragments.HomeFragment;
 import com.example.splitexpenses.fragments.TripsFragment;
+import com.example.splitexpenses.model.NewTripDAO;
+import com.example.splitexpenses.model.TripAppDatabase;
+import com.example.splitexpenses.model.TripRepository;
+import com.example.splitexpenses.viewmodel.MainActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     HomeFragment homeFragment = new HomeFragment();
     TripsFragment tripsFragment = new TripsFragment();
     AnalysisFragment analysisFragment = new AnalysisFragment();
+    TripRepository tripRepository;
 
     Toolbar toolbar ;
 
@@ -56,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         // simple toolbar.setTitle eont work as its priority is lower than given title in manifest
         getSupportActionBar().setTitle("Split Expenses");
 
+
+        tripRepository = new TripRepository(getApplication());
 
 
 

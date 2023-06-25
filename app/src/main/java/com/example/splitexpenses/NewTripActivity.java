@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.splitexpenses.adapters.MembersAdapter;
-import com.example.splitexpenses.db.TripAppDatabase;
+import com.example.splitexpenses.model.TripAppDatabase;
 import com.example.splitexpenses.template_data.MemberCardData;
 
 import java.text.SimpleDateFormat;
@@ -117,10 +117,6 @@ public class NewTripActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
- // for genrating id
-                Date dNow = new Date();
-                SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
-                String datetime = ft.format(dNow);
 
 
                 // sending data to Home Fragment

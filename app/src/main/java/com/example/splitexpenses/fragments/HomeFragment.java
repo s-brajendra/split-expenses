@@ -1,6 +1,9 @@
 package com.example.splitexpenses.fragments;
 
+import static java.lang.Long.parseLong;
+
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +12,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -18,9 +23,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.splitexpenses.MainActivity;
 import com.example.splitexpenses.NewTripActivity;
 import com.example.splitexpenses.R;
+import com.example.splitexpenses.model.NewTripDAO;
+import com.example.splitexpenses.model.TripAppDatabase;
+import com.example.splitexpenses.model.TripRepository;
+import com.example.splitexpenses.model.entity.NewTrip;
+import com.example.splitexpenses.viewmodel.MainActivityViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -29,7 +44,10 @@ public class HomeFragment extends Fragment {
     FloatingActionButton fab;
     RecyclerView recyclerView;
 
+//    private MainActivityViewModel mainActivityViewModel;
 
+    TripRepository tripRepository;
+private TripAppDatabase tripAppDatabase;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -70,6 +88,8 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        tripRepository = new TripRepository(getActivity().getApplication());
+
     }
 
     @Override
@@ -79,7 +99,13 @@ public class HomeFragment extends Fragment {
 
         View view =    inflater.inflate(R.layout.fragment_home, container, false);
 
-recyclerView = view.findViewById(R.id.recycler_trips_list);
+        Log.i("TAGY","ON create view called Home fragment");
+
+//        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+        tripAppDatabase = TripAppDatabase.getInstance(view.getContext());
+
+        recyclerView = view.findViewById(R.id.recycler_trips_list);
 
          fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +114,6 @@ recyclerView = view.findViewById(R.id.recycler_trips_list);
                 openSomeActivityForResult();
             }
         });
-
 
 
         return view;
@@ -117,6 +142,30 @@ recyclerView = view.findViewById(R.id.recycler_trips_list);
                         members = data.getStringArrayExtra("memData");
                          //
                         Log.i("TAGY","passin worked " + members[0]);
+                        // adding data in database
+
+
+
+                        // for genrating id
+                        Date dNow = new Date();
+                        SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
+                        String datetime = ft.format(dNow);
+                        Log.i("TAGY","admin: "+members[0] + "  total: " +members.length+" id:" + datetime );
+
+                        NewTrip tp = new NewTrip(members[0].toString(),members.length,parseLong(datetime));
+                        Log.i("TAGY","member0: "+tp.getTripAdmin() + " id: " + tp.getId() + " total: "+ tp.getTotalMembers());
+
+
+                        tripRepository.addNewTrip(tp);
+                        Log.i("TAGY","trip added ");
+
+
+//                        Log.i("TAGY","" +tripRepository.getNewTripDAO().getAllNewTrips().get(0));
+
+
+
+
+
 
                     }
                 }
